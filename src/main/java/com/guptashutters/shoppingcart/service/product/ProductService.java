@@ -1,6 +1,7 @@
 package com.guptashutters.shoppingcart.service.product;
 
 import com.guptashutters.shoppingcart.exceptions.ProductNotFoundException;
+import com.guptashutters.shoppingcart.exceptions.ResourceNotFoundException;
 import com.guptashutters.shoppingcart.model.Category;
 import com.guptashutters.shoppingcart.model.Product;
 import com.guptashutters.shoppingcart.repository.CategoryRepository;
@@ -53,14 +54,14 @@ public class ProductService implements IProductService  {
     @Override
     public Product getProductById(Long id) {
         return productRepository.findById(id)
-                .orElseThrow(()->new ProductNotFoundException("Product Not Found!"));
+                .orElseThrow(()->new ResourceNotFoundException("Product Not Found!"));
     }
 
     @Override
     public void deleteProductById(Long id) {
         productRepository.findById( id )
                 .ifPresentOrElse(productRepository::delete,
-                        ()->{throw new ProductNotFoundException("Product not found!");});
+                        ()->{throw new ResourceNotFoundException("Product not found!");});
 
     }
 
